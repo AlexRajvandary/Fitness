@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fitness.Model
 {
@@ -10,6 +6,16 @@ namespace Fitness.Model
     {
         public Food(string name, EnergeticValue energeticValue)
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if(energeticValue == null)
+            {
+                throw new ArgumentNullException(nameof(energeticValue));
+            }
+
             Name = name;
             EnergeticValue = energeticValue;
         }
@@ -21,5 +27,7 @@ namespace Fitness.Model
         public double Weight { get; }
 
         public double TotalCallories => EnergeticValue.Callories * Weight / 100;
+
+        public override string ToString() => Name;
     }
 }

@@ -13,7 +13,7 @@ namespace Fitness.Model
             Callories = callories;
         }
 
-        public EnergeticValue(ushort proteins, ushort fats, ushort carbohydrates)
+        public EnergeticValue(int proteins, int fats, int carbohydrates)
         {
             Proteins = proteins;
             Fats = fats;
@@ -21,14 +21,16 @@ namespace Fitness.Model
             Callories = CalculateCallories(proteins, fats, carbohydrates);
         }
 
-        public ushort Proteins { get; }
+        public int Proteins { get; }
 
-        public ushort Fats { get; }
+        public int Fats { get; }
 
-        public ushort Carbohydrates { get; }
+        public int Carbohydrates { get; }
 
         public double Callories { get; }
 
-        private double CalculateCallories(ushort proteins, ushort fats, ushort carbohydrates) => proteins * 4.22 + fats * 9.29 + carbohydrates * 4.22;
+        private double CalculateCallories(int proteins, int fats, int carbohydrates) => proteins * 4.22 + fats * 9.29 + carbohydrates * 4.22;
+
+        public static EnergeticValue operator +(EnergeticValue left, EnergeticValue right) => new EnergeticValue(left.Proteins + right.Proteins, left.Fats + right.Fats, left.Carbohydrates + right.Carbohydrates);
     }
 }
