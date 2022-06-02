@@ -35,5 +35,7 @@ namespace Fitness.Model
         public double CalloriesConsumption { get; }
 
         public double TotalCalloriesConsumption => CalloriesConsumption * Duration.TotalHours;
+
+        public override string ToString() => Name;
     }
 }

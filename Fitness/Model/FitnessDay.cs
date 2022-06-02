@@ -1,23 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace Fitness.Model
 {
-    public sealed class FitnessDay
+    public sealed class FitnessDay : INotifyPropertyChanged
     {
         public FitnessDay(DateOnly date)
         {
             Date = date;
+            Foods = new ObservableCollection<Food>();
+            Activities = new ObservableCollection<Activity>();
+
+            Foods.CollectionChanged += Foods_CollectionChanged;
+            Activities.CollectionChanged += Activities_CollectionChanged;
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+      
         public DateOnly Date { get; }
 
-        public List<Activity>? Activities { get; set; }
+        public ObservableCollection<Activity>? Activities { get; set; }
 
-        public List<Food>? Foods { get; set; }
+        public ObservableCollection<Food>? Foods { get; set; }
 
         public EnergeticValue? TotalEnergeticValue => Foods?.Select(food => food.EnergeticValue).Aggregate((first, next)=> first + next);
 
@@ -29,5 +36,11 @@ namespace Fitness.Model
         {
             return Date.ToString();
         }
+
+        private void Activities_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => OnPropertyChanged(nameof(TotalCalloriesConsumption));
+
+        private void Foods_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => OnPropertyChanged(nameof(TotalCalloriesGet));
+
+        private void OnPropertyChanged([CallerMemberName] string? propName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
 }

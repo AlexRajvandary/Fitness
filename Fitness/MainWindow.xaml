@@ -18,14 +18,38 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="{Binding CurrentFitnessDay}" Margin="10" FontFamily="Calibri" FontSize="12"/>
+            <Grid Margin="0,2,0,0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Background="Silver" Text="Date" FontFamily="Calibri"/>
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding CurrentFitnessDay.Date}" FontFamily="Calibri"/>
+                
+                <TextBlock Grid.Column="1" Background="Silver" Text="Activities" FontFamily="Calibri"/>
+                <ListBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding CurrentFitnessDay.Activities}" FontFamily="Calibri"/>
+                
+                <TextBlock Grid.Column="2" Background="Silver" Text="Foods"/>
+                <ListBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding CurrentFitnessDay.Foods}" FontFamily="Calibri"/>
+                
+                <TextBlock Grid.Column="3" Background="Silver" Text="Total calories consumed" FontFamily="Calibri"/>
+                <TextBlock Grid.Column="3" Grid.Row="1" Text="{Binding CurrentFitnessDay.TotalCalloriesConsumed}" FontFamily="Calibri"/>
+                
+                <TextBlock Grid.Column="4" Background="Silver" Text="Total calories get" FontFamily="Calibri"/>
+                <TextBlock Grid.Column="4" Grid.Row="1" Text="{Binding CurrentFitnessDay.TotalCalloriesGet}" FontFamily="Calibri"/>
+            </Grid>
             <DataGrid x:Name="FitnessCalendar" Grid.Row="1" SelectedItem="{Binding CurrentFitnessDay}"/>
-
-
         </Grid>
     </Grid>
 </Window>
