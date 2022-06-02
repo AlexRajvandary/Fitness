@@ -24,5 +24,10 @@ namespace Fitness.Model
         public double TotalCalloriesConsumption => Activities?.Sum(activity => activity.TotalCalloriesConsumption) ?? 0;
 
         public double TotalCalloriesGet => TotalEnergeticValue?.Callories ?? 0;
+
+        public override string ToString()
+        {
+            return Date.ToString();
+        }
     }
 }
