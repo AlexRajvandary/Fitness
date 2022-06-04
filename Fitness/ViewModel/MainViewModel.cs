@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using Fitness.Model;
@@ -17,6 +15,7 @@ namespace Fitness.ViewModel
         private string activityDuration;
         private string activityCallories;
         private ICommand addActivity;
+        private ICommand clear;
         private FitnessDay currentFitnessDay;
 
         public MainViewModel()
@@ -72,9 +71,24 @@ namespace Fitness.ViewModel
         {
             if (ActivityCallories != null && ActivityDuration != null && ActivityName != null)
             {
-                CurrentFitnessDay?.Activities?.Add(new Activity(ActivityName, TimeSpan.FromHours(double.Parse(ActivityDuration)), double.Parse(ActivityCallories)));
+                if(!double.TryParse(ActivityDuration, out var duration))
+                {
+                    return;
+                }
+
+                if (!double.TryParse(ActivityCallories, out var callories))
+                {
+                    return;
+                }
+
+                CurrentFitnessDay?.Activities?.Add(new Activity(ActivityName, TimeSpan.FromHours(duration), callories));
             }
 
+            Clear.Execute(null);
+        });
+
+        public ICommand Clear => clear ??= new RelayCommand(() =>
+        {
             ActivityName = null;
             ActivityDuration = null;
             ActivityCallories = null;
