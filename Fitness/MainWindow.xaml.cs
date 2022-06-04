@@ -12,6 +12,7 @@ namespace Fitness
         {
             DataContext = new MainViewModel();
             InitializeComponent();
+            VersionTextBlock.Text = typeof(MainWindow).Assembly.GetName().Version?.ToString();
             FitnessCalendar.ItemsSource = ((MainViewModel)DataContext).FitnessDays;
         }
     }
