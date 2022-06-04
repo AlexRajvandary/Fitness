@@ -26,9 +26,9 @@ namespace Fitness.Model
 
         public ObservableCollection<Food>? Foods { get; set; }
 
-        public EnergeticValue? TotalEnergeticValue => Foods?.Select(food => food.EnergeticValue).Aggregate((first, next)=> first + next);
+        public EnergeticValue? TotalEnergeticValue => Foods is not null && Activities.Count > 0 ? Foods.Count > 1 ? Foods.Select(food => food.EnergeticValue).Aggregate((first, next)=> first + next) : Foods.FirstOrDefault()?.EnergeticValue : null;
 
-        public double TotalCalloriesConsumption => Activities?.Sum(activity => activity.TotalCalloriesConsumption) ?? 0;
+        public double TotalCalloriesConsumption => Activities is not null && Activities.Count > 0 ? Activities.Sum(activity => activity.TotalCalloriesConsumption) : 0;
 
         public double TotalCalloriesGet => TotalEnergeticValue?.Callories ?? 0;
 
