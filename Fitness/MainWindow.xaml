@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Fitness"
         mc:Ignorable="d"
         
-        Title="MainWindow" Height="450" Width="800" Background="#CCF3EE">
+        Title="MainWindow" Height="450" Width="900" MinWidth="900" Background="#CCF3EE">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*"/>
@@ -42,19 +42,19 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Background="#99C4C8" Text="Date" FontFamily="Calibri"/>
+                    <TextBlock Grid.Column="0" Background="#99C4C8" Text="Date" TextAlignment="Center" FontFamily="Calibri"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding CurrentFitnessDay.Date}" FontFamily="Calibri"/>
 
-                    <TextBlock Grid.Column="1" Background="#99C4C8" Text="Activities" FontFamily="Calibri"/>
+                    <TextBlock Grid.Column="1" Background="#99C4C8" Text="Activities" TextAlignment="Center" FontFamily="Calibri"/>
                     <ListBox Grid.Column="1" Grid.Row="1" Background="#CCF3EE" ItemsSource="{Binding CurrentFitnessDay.Activities}" FontFamily="Calibri" BorderBrush="Transparent"/>
 
-                    <TextBlock Grid.Column="2" Background="#99C4C8" Text="Foods"/>
+                    <TextBlock Grid.Column="2" Background="#99C4C8" Text="Foods" TextAlignment="Center"/>
                     <ListBox Grid.Column="2" Grid.Row="1" Background="#CCF3EE" ItemsSource="{Binding CurrentFitnessDay.Foods}" FontFamily="Calibri" BorderBrush="Transparent"/>
 
-                    <TextBlock Grid.Column="3" Background="#99C4C8" Text="Total Callories Consumption" FontFamily="Calibri"/>
+                    <TextBlock Grid.Column="3" Background="#99C4C8" Text="Total Callories Consumption" TextAlignment="Center" FontFamily="Calibri"/>
                     <TextBlock Grid.Column="3" Grid.Row="1" Text="{Binding CurrentFitnessDay.TotalCalloriesConsumption}" FontFamily="Calibri"/>
 
-                    <TextBlock Grid.Column="4" Background="#99C4C8" Text="Total callories get" FontFamily="Calibri"/>
+                    <TextBlock Grid.Column="4" Background="#99C4C8" Text="Total callories get" TextAlignment="Center" FontFamily="Calibri"/>
                     <TextBlock Grid.Column="4" Grid.Row="1" Text="{Binding CurrentFitnessDay.TotalCalloriesGet}" FontFamily="Calibri"/>
 
                 </Grid>
@@ -63,14 +63,52 @@
                 <TabItem>
                     <TabItem.Header>
                         <TextBlock Text="Activities"/>
-
                     </TabItem.Header>
                     <TabItem.Content>
-                        <Grid>
+                        <Grid >
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
                             </Grid.RowDefinitions>
+
+                            <Grid>
+                                <ListBox ItemsSource="{Binding CurrentFitnessDay.Activities}"/>
+                            </Grid>
+
+                            <Grid Grid.Row="1" Background="#99C4C8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Name" TextAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="Duration" TextAlignment="Center"/>
+                                <TextBlock Grid.Column="2" Text="Callories per hour" TextAlignment="Center"/>
+                                <TextBlock Grid.Column="3" Text="Total callories" TextAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Grid.Row="2" Background="#CCF3EE">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="{Binding ActivityName, Mode=TwoWay}"/>
+                                <TextBox Grid.Column="1" Text="{Binding ActivityDuration, Mode=TwoWay}"/>
+                                <TextBox Grid.Column="2" Text="{Binding ActivityCallories, Mode=TwoWay}"/>
+                                <TextBox Grid.Column="3" />
+                                <Button Grid.Column="4" Background="#354259" Command="{Binding AddActivity}">
+                                    <Button.Content>
+                                        <fa:FontAwesome Icon="Plus"  Foreground="#CCF3EE"/>
+                                    </Button.Content>
+                                </Button>
+                            </Grid>
+                           
                         </Grid>
                     </TabItem.Content>
                 </TabItem>
@@ -79,9 +117,7 @@
                         <TextBlock Text="Food"/>
 
                     </TabItem.Header>
-
                 </TabItem>
-
             </TabControl>
             <DataGrid x:Name="FitnessCalendar" AutoGenerateColumns="False" Background="#CCF3EE" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding CurrentFitnessDay}">
                 <DataGrid.Columns>

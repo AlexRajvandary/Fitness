@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using Fitness.Model;
+using System.Windows.Input;
 
 namespace Fitness.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private string activityName;
+        private string activityDuration;
+        private string activityCallories;
+        private ICommand addActivity;
         private FitnessDay currentFitnessDay;
 
         public MainViewModel()
@@ -24,6 +29,57 @@ namespace Fitness.ViewModel
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        public string ActivityCallories
+        {
+            get => activityCallories;
+            set
+            {
+                if (activityCallories != value)
+                {
+                    activityCallories = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string ActivityDuration
+        {
+            get => activityDuration;
+            set
+            {
+                if (ActivityDuration != value)
+                {
+                    activityDuration = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string ActivityName
+        {
+            get => activityName;
+            set
+            {
+                if (activityName != value)
+                {
+                    activityName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand AddActivity => addActivity ??= new RelayCommand(() =>
+        {
+            if (ActivityCallories != null && ActivityDuration != null && ActivityName != null)
+            {
+                CurrentFitnessDay?.Activities?.Add(new Activity(ActivityName, TimeSpan.FromHours(double.Parse(ActivityDuration)), double.Parse(ActivityCallories)));
+            }
+
+            ActivityName = null;
+            ActivityDuration = null;
+            ActivityCallories = null;
+        });
+
         public ObservableCollection<Activity> ExistingActivities { get; set; }
 
         public ObservableCollection<Food> ExistingFoods { get; set; }
@@ -33,7 +89,7 @@ namespace Fitness.ViewModel
             get => currentFitnessDay;
             set
             {
-                if(currentFitnessDay != value)
+                if (currentFitnessDay != value)
                 {
                     currentFitnessDay = value;
                     OnPropertyChanged();

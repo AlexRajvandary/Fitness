@@ -23,6 +23,7 @@ namespace Fitness.Model
 
             Name = name;
             Duration = duration;
+            CalloriesConsumption = calloriesConsumption;
         }
 
         public string Name { get; }
