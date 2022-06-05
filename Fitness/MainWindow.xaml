@@ -121,8 +121,88 @@
                 <TabItem>
                     <TabItem.Header>
                         <TextBlock Text="Food"/>
-
                     </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid>
+                                <DataGrid ItemsSource="{Binding CurrentFitnessDay.Foods}"/>
+                            </Grid>
+
+                            <Grid Grid.Row="1" Background="#99C4C8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Name" TextAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="Weight" TextAlignment="Center"/>
+                                <TextBlock Grid.Column="2" Text="Callories per hour" TextAlignment="Center"/>
+
+                            </Grid>
+
+                            <Grid Grid.Row="2" Background="#CCF3EE">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="{Binding ActivityName, Mode=TwoWay}"/>
+                                <TextBox Grid.Column="1" Text="{Binding ActivityDuration, Mode=TwoWay}"/>
+                                <TextBox Grid.Column="2" Text="{Binding ActivityCallories, Mode=TwoWay}"/>
+
+                                <Button Grid.Column="3" Background="#354259" Command="{Binding AddActivity}">
+                                    <Button.Content>
+                                        <fa:FontAwesome Icon="Plus"  Foreground="LightGreen"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Grid.Column="4" Background="#354259" Command="{Binding Clear}">
+                                    <Button.Content>
+                                        <fa:FontAwesome Icon="Times"  Foreground="Red"/>
+                                    </Button.Content>
+                                </Button>
+                            </Grid>
+
+                            <Grid Grid.Row="3" Background="#99C4C8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Proteins" TextAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="Fats" TextAlignment="Center"/>
+                                <TextBlock Grid.Column="2" Text="Carbohydrates" TextAlignment="Center"/>
+                                <TextBlock Grid.Column="3" Text="Callories" TextAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" />
+                                <TextBox Grid.Column="1" />
+                                <TextBox Grid.Column="2" />
+                                <TextBox Grid.Column="3" />
+                            </Grid>
+
+
+                        </Grid>
+                    </TabItem.Content>
                 </TabItem>
             </TabControl>
             <DataGrid x:Name="FitnessCalendar" AutoGenerateColumns="False" Background="#CCF3EE" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding CurrentFitnessDay}">
